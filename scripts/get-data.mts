@@ -4,6 +4,7 @@ import { google } from 'googleapis';
 import { writeFileSync } from 'fs';
 import dotenv from 'dotenv';
 import { downloadImage } from './images.mjs';
+import type { LocationInfo } from '../src/lib/types';
 dotenv.config();
 
 const { SHEET_ID, API_KEY } = process.env;
@@ -28,10 +29,11 @@ async function main() {
 	if (!rows) {
 		throw new Error(`Spreadsheets call failed. ${response.status}, ${rows}`);
 	}
+
 	const get = <T extends number | string>(row: unknown[], col: string): T =>
 		row[rows[0].findIndex((h) => h.toLowerCase().includes(col))] as T;
 
-	const data = (
+	const data: LocationInfo[] = (
 		await Promise.all(
 			rows.map(async (row, index) => {
 				if (index === 0) return;
@@ -42,14 +44,14 @@ async function main() {
 				return {
 					index,
 					date,
-					location: get(row, 'location'),
+					description: get(row, 'location'),
 					latitude: get(row, 'latitude'),
 					longitude: get(row, 'longitude'),
 					image: await downloadImage(get(row, 'photo url'), index)
-				};
+				} satisfies LocationInfo;
 			})
 		)
-	).filter(Boolean);
+	).filter((e): e is LocationInfo => e != null);
 
 	const json = JSON.stringify(data, null, 2);
 	writeFileSync(dataFilepath, json, 'utf8');
