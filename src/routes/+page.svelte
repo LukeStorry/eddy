@@ -3,7 +3,6 @@
 	import data from '../data.json';
 
 	const dataString = JSON.stringify(data, null, 2);
-
 </script>
 
 <h1 class="bg-slate-500 text-center w-full h-20">Eddy's Journey</h1>

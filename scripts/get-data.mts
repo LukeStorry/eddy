@@ -3,7 +3,7 @@
 import { google } from 'googleapis';
 import { writeFileSync } from 'fs';
 import dotenv from 'dotenv';
-import { downloadAndOptimizeImage } from './images.mjs';
+import { downloadImage } from './images.mjs';
 dotenv.config();
 
 const { SHEET_ID, API_KEY } = process.env;
@@ -12,32 +12,48 @@ const dataFilepath = './src/data.json';
 const sheets = google.sheets({ version: 'v4', auth: API_KEY });
 
 async function main() {
-	const response = await sheets.spreadsheets.values.get({
-		spreadsheetId: SHEET_ID,
-		range: 'A1:G73'
-	});
+	const response = await sheets.spreadsheets.values
+		.get({
+			spreadsheetId: SHEET_ID,
+			range: 'A1:G100'
+			// valueRenderOption: 'UNFORMATTED_VALUE',
+			// dateTimeRenderOption: 'SERIAL_NUMBER'
+		})
+		.catch((e) => {
+			throw new Error(e.message);
+		});
 
 	const rows = response.data.values;
-	const headers = rows?.shift()?.map((header) => header.toLowerCase().replace(/ /g, '_'));
 
-	if (!rows || !headers) {
-		throw new Error(`Spreadsheets call failed. ${response.status}`);
+	if (!rows) {
+		throw new Error(`Spreadsheets call failed. ${response.status}, ${rows}`);
 	}
+	const get = <T extends number | string>(row: unknown[], col: string): T =>
+		row[rows[0].findIndex((h) => h.toLowerCase().includes(col))] as T;
 
-	const data = rows.map((row, index) => {
-		const item: { [key: string]: string } = { id: (index + 1).toString() };
-		headers.forEach((header, col) => {
-			if (['photo', 'ifttt_share_url'].includes(header)) return;
-			item[header] = row[col];
-		});
-		return item;
-	});
+	const data = (
+		await Promise.all(
+			rows.map(async (row, index) => {
+				if (index === 0) return;
+				const formattedDate = get<string>(row, 'date').split(' at ')[0];
+				const date = new Date(formattedDate);
+				date.setHours(1); // bumps over into correct day
+
+				return {
+					index,
+					date,
+					location: get(row, 'location'),
+					latitude: get(row, 'latitude'),
+					longitude: get(row, 'longitude'),
+					image: await downloadImage(get(row, 'photo url'), index)
+				};
+			})
+		)
+	).filter(Boolean);
 
 	const json = JSON.stringify(data, null, 2);
 	writeFileSync(dataFilepath, json, 'utf8');
 	console.log(`Data saved to ${dataFilepath}`);
-
-	await Promise.all(data.map(async (item) => downloadAndOptimizeImage(item.photo_url, item.id)));
 }
 
 main();
