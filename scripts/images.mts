@@ -3,38 +3,37 @@ import { existsSync, readFile } from 'fs';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
 
-const getImageFilepath = (id: string) => `./static/images/${id}.png`;
+const getImageFilepath = (index: number) => `./static/images/${index}.png`;
 
-export async function downloadAndOptimizeImage(imageUrl: string, id: string) {
-	const filepath = getImageFilepath(id);
-	// if filepath already exists, don't download
+export async function downloadImage(imageUrl: string, index: number) {
+	const filepath = getImageFilepath(index);
 	if (existsSync(filepath)) {
-		console.log(`Image ${id} already exists at path ${filepath}, skipping download`);
-		return;
+		console.info(`Image ${index} already exists at path ${filepath}, skipping download`);
+		return filepath.replace('./static', '');
 	}
 
 	const response = await fetch(imageUrl);
 	if (!response.ok) {
 		throw new Error(
-			`Failed to download image ${id + 1} with status ${response.status} from ${imageUrl} `
+			`Failed to download image ${index} with status ${response.status} from ${imageUrl} `
 		);
 	}
 	const buffer = await response.buffer();
 	await optimise(buffer, filepath);
 
-	console.log(`Image ${id} downloaded and optimized successfully`);
+	console.log(`Image ${index} downloaded and optimized successfully`);
+	return filepath.replace('./static', '');
 }
 
 function optimise(buffer: Buffer, filepath: string) {
-	return sharp(buffer).png({ quality: 80 }).resize(600, 600).toFile(filepath);
+	return sharp(buffer).png({ quality: 80 }).rotate().resize(600, 600).toFile(filepath);
 }
 
 async function optimiseAllImages() {
-	for (let i = 1; i <= 5; i++) {
-		const filepath = getImageFilepath(i.toString());
+	for (let i = 1; i <= 50; i++) {
+		const filepath = getImageFilepath(i);
 		readFile(filepath, (err, buffer) => {
 			if (err) {
-				console.log(buffer);
 				console.log(err.message);
 				return;
 			}
