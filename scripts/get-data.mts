@@ -41,13 +41,13 @@ async function main() {
 				const date = new Date(formattedDate);
 				date.setHours(1); // bumps over into correct day
 
+				const id = get<string>(row, 'location').toLowerCase().replace(/ /g, '_') || index.toString();
 				return {
-					index,
 					date,
 					description: get(row, 'location'),
 					latitude: get(row, 'latitude'),
 					longitude: get(row, 'longitude'),
-					image: await downloadImage(get(row, 'photo url'), index)
+					image: await downloadImage(get(row, 'photo url'), id)
 				} satisfies LocationInfo;
 			})
 		)
