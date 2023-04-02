@@ -2,23 +2,23 @@
 
 import { google } from 'googleapis';
 import { writeFileSync } from 'fs';
-import dotenv from 'dotenv';
 import { downloadImage } from './images.mjs';
 import type { LocationInfo } from '../src/lib/types';
+import dotenv from 'dotenv';
 dotenv.config();
 
-const { SHEET_ID, API_KEY } = process.env;
+const { SHEET_ID, GOOGLE_API_KEY } = process.env;
 const dataFilepath = './src/data.json';
 
-const sheets = google.sheets({ version: 'v4', auth: API_KEY });
+const sheets = google.sheets({ version: 'v4', auth: GOOGLE_API_KEY });
 
 async function main() {
 	const response = await sheets.spreadsheets.values
 		.get({
 			spreadsheetId: SHEET_ID,
-			range: 'A1:G100'
-			// valueRenderOption: 'UNFORMATTED_VALUE',
-			// dateTimeRenderOption: 'SERIAL_NUMBER'
+			range: 'A1:G100',
+			valueRenderOption: 'UNFORMATTED_VALUE',
+			dateTimeRenderOption: 'FORMATTED_STRING'
 		})
 		.catch((e) => {
 			throw new Error(e.message);
