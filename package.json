@@ -12,6 +12,7 @@
 		"lint": "prettier --plugin-search-dir . --write . && eslint . --fix"
 	},
 	"devDependencies": {
+		"@beyonk/svelte-mapbox": "^9.0.5",
 		"@sveltejs/adapter-static": "^2.0.1",
 		"@sveltejs/kit": "^1.5.0",
 		"@types/node": "^18.15.11",

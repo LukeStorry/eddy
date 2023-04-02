@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@beyonk/svelte-mapbox@^9.0.5":
+  version "9.0.5"
+  resolved "https://registry.yarnpkg.com/@beyonk/svelte-mapbox/-/svelte-mapbox-9.0.5.tgz#7eca6a1ebff41dcde9fe90f204b1cde5f5ab6213"
+  integrity sha512-PRuvVObqafFZ4rnqque0A0HuyPUrRwCjs1zxHJQdM4eG/1lPJpyEuEtcwuQuterAVldbcitr7un94irKg7SNpA==
+
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz#00629c35a688e05a88b1cda684fb9d5e73f000a1"
