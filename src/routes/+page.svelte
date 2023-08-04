@@ -10,7 +10,9 @@
 	const center = [locations.at(-1)?.longitude, locations.at(-1)?.latitude];
 </script>
 
-<h1 class="bg-[#3f7e9b]/50 text-white text-center py-2 px-12 backdrop-blur-sm absolute z-10 border-rb rounded-br-2xl">
+<h1
+	class="bg-[#3f7e9b]/50 text-white text-center py-2 px-12 backdrop-blur-sm absolute z-10 border-rb rounded-br-2xl"
+>
 	Eddy's Journey
 </h1>
 <div class="h-screen">
