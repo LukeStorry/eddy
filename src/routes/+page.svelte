@@ -4,17 +4,9 @@
 	import locations from '../data.json';
 	import { Map, Marker, controls } from '@beyonk/svelte-mapbox/components';
 	import MarkerIcon from './MarkerIcon.svelte';
+	import LocationDisplay from './LocationDisplay.svelte';
 	const { GeolocateControl, NavigationControl, ScaleControl } = controls;
 
-	// const locationEdges = locations.reduce(
-	// 	([west, south, east, north], { latitude, longitude }) => [
-	// 		Math.min(west, longitude),
-	// 		Math.min(south, latitude),
-	// 		Math.max(east, longitude),
-	// 		Math.max(north, latitude)
-	// 	],
-	// 	[100, 100, -100, -100]
-	// );
 	const center = [locations.at(-1)?.longitude, locations.at(-1)?.latitude];
 </script>
 
@@ -27,15 +19,8 @@
 		{#each locations as l}
 			<Marker lat={l.latitude} lng={l.longitude} popupOptions={{ closeButton: false }}>
 				<MarkerIcon />
-
 				<div slot="popup">
-					<div>
-						{new Date(l.date).toDateString()}
-					</div>
-					<div>
-						{l.description}
-					</div>
-					<img src={l.image} alt={'Photo of Eddy at ' + l.description} />
+					<LocationDisplay location={l} />
 				</div>
 			</Marker>
 		{/each}
