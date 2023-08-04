@@ -41,9 +41,10 @@ async function main() {
 				const date = new Date(formattedDate);
 				date.setHours(1); // bumps over into correct day
 
-				const id = get<string>(row, 'location').toLowerCase().replace(/ /g, '_') || index.toString();
+				const id =
+					get<string>(row, 'location').toLowerCase().replace(/ /g, '_') || index.toString();
 				return {
-					date,
+					date: date.toISOString(),
 					description: get(row, 'location'),
 					latitude: get(row, 'latitude'),
 					longitude: get(row, 'longitude'),

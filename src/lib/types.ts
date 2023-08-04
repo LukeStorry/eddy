@@ -1,5 +1,5 @@
 export type LocationInfo = {
-	date: Date;
+	date: string;
 	description: string;
 	latitude: number;
 	longitude: number;
