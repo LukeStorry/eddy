@@ -27,7 +27,7 @@
 		<GeolocateControl />
 		<ScaleControl />
 		{#each locations as l}
-			<Marker lat={l.latitude} lng={l.longitude}>
+			<Marker lat={l.latitude} lng={l.longitude} popupOptions={{closeButton:false}}>
 				<svg height="20" width="20">
 					<circle cx="10" cy="10" r="8" fill="#42b883" stroke="black" />
 				</svg>
