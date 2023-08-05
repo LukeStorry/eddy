@@ -31,19 +31,17 @@ function optimise(buffer: Buffer, filepath: string) {
 
 async function optimiseAllImages() {
 	const imageDirPath = getImageFilepath('x').split('x')[0];
-	const files = readdirSync(imageDirPath)
-		.filter((p) => {
-			return p.endsWith('.jpg') || p.endsWith('.png');
-		})
-		.map((p) => p.replace('.jpg', '').replace('.png', ''));
+	const files = readdirSync(imageDirPath).filter((p) => {
+		return p.endsWith('.jpg') || p.endsWith('.png');
+	});
 
 	for (const imageName of files) {
-		readFile(getImageFilepath(imageName), (err, buffer) => {
+		readFile(imageDirPath + imageName, (err, buffer) => {
 			if (err) {
 				console.log(err.message);
 				return;
 			}
-			optimise(buffer, getImageFilepath(imageName));
+			optimise(buffer, getImageFilepath(imageName.replace('.jpg', '')));
 			console.log(`Image ${imageName} optimized successfully`);
 		});
 	}
