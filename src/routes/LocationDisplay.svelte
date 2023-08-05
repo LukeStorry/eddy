@@ -3,12 +3,16 @@
 	export let location: LocationInfo;
 </script>
 
-<div>
-	{new Date(location.date).toDateString()}
-</div>
-
-<div>
+<h3 class="text-lg font-bold text-[#3f7e9b]">
 	{location.description}
-</div>
+</h3>
 
-<img src={location.image} alt={'Photo of Eddy at ' + location.description} />
+<img
+	src={location.image}
+	alt={'Photo of Eddy at ' + location.description}
+	class="rounded-lg shadow-lg my-2"
+/>
+
+<p class="text-right">
+	{new Date(location.date).toDateString()}
+</p>
