@@ -1,5 +1,5 @@
 'use strict';
-import { existsSync, readFile } from 'fs';
+import { existsSync, readFile, readdirSync } from 'fs';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
 
@@ -30,15 +30,16 @@ function optimise(buffer: Buffer, filepath: string) {
 }
 
 async function optimiseAllImages() {
-	for (let i = 1; i <= 50; i++) {
-		const filepath = getImageFilepath(i.toString());
-		readFile(filepath, (err, buffer) => {
+	const imageDirPath = getImageFilepath('x').split('x')[0];
+	const files = readdirSync(imageDirPath);
+	for (const imageName of files.filter((p) => p.endsWith('.png'))) {
+		readFile(imageDirPath + imageName, (err, buffer) => {
 			if (err) {
 				console.log(err.message);
 				return;
 			}
-			optimise(buffer, filepath);
-			console.log(`Image ${i} optimized successfully`);
+			optimise(buffer, imageDirPath + imageName);
+			console.log(`Image ${imageName} optimized successfully`);
 		});
 	}
 }

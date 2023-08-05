@@ -43,18 +43,21 @@ async function main() {
 
 				const id =
 					get<string>(row, 'location').toLowerCase().replace(/ /g, '_') || index.toString();
+
+				const image = await downloadImage(get(row, 'photo url'), id);
+
 				return {
 					date: date.toISOString(),
 					description: get(row, 'location'),
 					latitude: get(row, 'latitude'),
 					longitude: get(row, 'longitude'),
-					image: await downloadImage(get(row, 'photo url'), id)
+					image
 				} satisfies LocationInfo;
 			})
 		)
 	).filter((e): e is LocationInfo => e != null);
 
-	const json = JSON.stringify(data, null, 2);
+	const json = JSON.stringify(data, null, 2) + '\n';
 	writeFileSync(dataFilepath, json, 'utf8');
 	console.log(`Data saved to ${dataFilepath}`);
 }
