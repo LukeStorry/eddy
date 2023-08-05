@@ -302,72 +302,58 @@
 	},
 	{
 		"date": "2023-04-01T00:00:00.000Z",
-		"description": "",
+		"description": "Mile End",
 		"latitude": 51.5146024,
 		"longitude": -0.0283549,
-		"image": "/images/44.png"
+		"image": "/images/mile_end.png"
 	},
 	{
 		"date": "2023-05-14T00:00:00.000Z",
-		"description": "",
+		"description": "Mile End (stuck with birds)",
 		"latitude": 51.5395748,
 		"longitude": -0.0266794,
-		"image": "/images/45.png"
+		"image": "/images/mile_end_(stuck_with_birds).png"
 	},
 	{
 		"date": "2023-05-17T00:00:00.000Z",
-		"description": "",
+		"description": "Hackney Wick",
 		"latitude": 51.5543263,
 		"longitude": -0.0328557,
-		"image": "/images/46.png"
+		"image": "/images/hackney_wick.png"
 	},
 	{
 		"date": "2023-05-27T00:00:00.000Z",
-		"description": "",
+		"description": "Stonebridge (Tottenham Hale)",
 		"latitude": 51.593309,
 		"longitude": -0.05302,
-		"image": "/images/47.png"
-	},
-	{
-		"date": "2023-06-04T00:00:00.000Z",
-		"description": "",
-		"latitude": 51.593068,
-		"longitude": -0.0529774,
-		"image": "/images/48.png"
-	},
-	{
-		"date": "2023-06-04T00:00:00.000Z",
-		"description": "",
-		"latitude": 51.6207505,
-		"longitude": -0.0349652,
-		"image": "/images/49.png"
+		"image": "/images/stonebridge_(tottenham_hale).png"
 	},
 	{
 		"date": "2023-06-06T00:00:00.000Z",
-		"description": "",
+		"description": "Enfield dock (before)",
 		"latitude": 51.6648261,
 		"longitude": -0.0190064,
-		"image": "/images/50.png"
+		"image": "/images/enfield_dock_(before).png"
 	},
 	{
 		"date": "2023-07-18T00:00:00.000Z",
-		"description": "",
+		"description": "Enfield dock (after)",
 		"latitude": 51.6653296,
 		"longitude": -0.0185301,
-		"image": "/images/51.png"
+		"image": "/images/enfield_dock_(after).png"
 	},
 	{
 		"date": "2023-07-19T00:00:00.000Z",
-		"description": "",
+		"description": "Tottenham Hale",
 		"latitude": 51.5856664,
 		"longitude": -0.0565706,
-		"image": "/images/52.png"
+		"image": "/images/tottenham_hale.png"
 	},
 	{
 		"date": "2023-07-28T00:00:00.000Z",
-		"description": "",
+		"description": "Walthamstow Marshes (Clapton)",
 		"latitude": 51.5565709,
 		"longitude": -0.044992,
-		"image": "/images/53.png"
+		"image": "/images/walthamstow_marshes_(clapton).png"
 	}
 ]
